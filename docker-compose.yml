@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  java-backend:
+    build: ./java-backend
+    ports:
+      - "8080:8080" # Map host port 8080 to container port 8080
+    environment:
+      # Add environment variables for Java backend
+      - DATABASE_URL=jdbc:postgresql://postgres:5432/mydatabase
+
+  python-service:
+    build: ./python-service
+    ports:
+      - "5000:5000" # Map host port 5000 to container port 5000
+    environment:
+      # Add environment variables for Python service
+      - JAVA_BACKEND_URL=http://java-backend:8080
+
+  react-frontend:
+    build: ./react-frontend
+    ports:
+      - "3000:80" # Map host port 3000 to container port 80 (nginx)
+    depends_on:
+      - java-backend # Ensure backend is up before frontend starts
+    environment:
+      # Add environment variables for React frontend (e.g., API URL)
+      - REACT_APP_API_URL=http://localhost:8080 # For local development, use host IP or specific setup for container communication
+
+  # Optional: Database service
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
