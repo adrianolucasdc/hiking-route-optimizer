@@ -104,10 +104,17 @@ def graph_endpoint():
 
     if not data or 'matrix' not in data:
         return jsonify({"error": "chave 'matrix' obrigatória no JSON"}), 400
+    
 
     matrix = data['matrix']
-    directed = data.get('directed', True)
-    labels = data.get('labels', None)
+    directed = True
+
+    n = 65  # ASCII 'A'
+    labels = []
+    for n in range(len(data['matrix'])):
+        labels.append(chr(n + 65))
+
+    
     k = data.get('k', None)
     figsize = tuple(data.get('figsize', [8,6]))
 
