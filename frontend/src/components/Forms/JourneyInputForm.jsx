@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import api from '../../services/api'; // import axios configurado
-
-const getPointName = (index) => String.fromCharCode(65 + index);
+import api from '../../services/api';
 
 export default function JourneyInputForm({ count, onConfirm, onBack, formattedMatrix }) {
     const [startPoint, setStartPoint] = useState('');
     const [endPoint, setEndPoint] = useState('');
+
+    const getPointName = (index) => String.fromCharCode(65 + index);
 
     const handleConfirm = async () => {
         if (!startPoint || !endPoint) {
@@ -14,15 +14,16 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
             return;
         }
 
-        // Agora o console.log(formattedMatrix) é exibido AQUI
-        console.log(formattedMatrix);
-        console.log(`Ponto de Partida: ${startPoint}, Ponto de Chegada: ${endPoint}`);
+        // Converte o formattedMatrix para matriz numérica 2D
+        const numericMatrix = formattedMatrix.map(row =>
+            row.dados.map(cell => (cell.checked ? Number(cell.value) : 0))
+        );
 
         try {
             const response = await api.post("/api/grafo/processar", {
-                origem: startPoint,
-                destino: endPoint,
-                matriz: formattedMatrix // 🔹 Enviando o formattedMatrix para o backend
+                origem: startPoint.charCodeAt(0) - 65, // 'A' -> 0
+                destino: endPoint.charCodeAt(0) - 65,   // 'B' -> 1
+                matriz: numericMatrix
             });
 
             console.log("Resposta do backend:", response.data);
@@ -42,9 +43,7 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
     return (
         <div className="p-4 md:p-8 w-full max-w-lg mx-auto">
             <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold font-mono">
-                    Defina sua Jornada
-                </h2>
+                <h2 className="text-2xl font-bold font-mono">Defina sua Jornada</h2>
                 <button
                     onClick={onBack}
                     className="bg-gray-500 text-white font-mono py-2 px-4 rounded-lg hover:bg-gray-600 text-sm"
@@ -52,6 +51,7 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
                     Voltar
                 </button>
             </div>
+
             <div className="flex flex-col items-center justify-center my-4 gap-4">
                 <div className="flex flex-col items-center gap-2">
                     <label htmlFor="startPoint" className="font-mono font-bold">
@@ -69,6 +69,7 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
                         ))}
                     </select>
                 </div>
+
                 <div className="flex flex-col items-center gap-2">
                     <label htmlFor="endPoint" className="font-mono font-bold">
                         Ponto de Chegada:
@@ -85,6 +86,7 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
                         ))}
                     </select>
                 </div>
+
                 <button
                     onClick={handleConfirm}
                     className="bg-black text-white font-bold font-mono py-2 px-8 rounded-lg hover:bg-gray-800 mt-4"

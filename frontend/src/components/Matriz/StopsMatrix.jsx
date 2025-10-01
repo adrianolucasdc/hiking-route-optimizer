@@ -8,7 +8,7 @@ export default function StopsMatrix({ count, onBack }) {
     const [matrix, setMatrix] = useState([]);
     const [currentRowIndex, setCurrentRowIndex] = useState(0);
     const [showJourneyInput, setShowJourneyInput] = useState(false);
-    const [journeyMatrix, setJourneyMatrix] = useState(null); // 🔹 Guarda o formattedMatrix
+    const [journeyMatrix, setJourneyMatrix] = useState(null); // Guarda o formattedMatrix
 
     useEffect(() => {
         const initialMatrix = Array.from({ length: count }, () =>
@@ -69,12 +69,12 @@ export default function StopsMatrix({ count, onBack }) {
             return;
         }
 
+        // Formato para UI
         const formattedMatrix = matrix.map((row, index) => ({
             ponto: getPointName(index),
             dados: row
         }));
 
-        // 🔹 Agora não faz mais console.log aqui
         setJourneyMatrix(formattedMatrix); // guarda no estado
         toast.success("Jornada configurada com sucesso! Agora defina os pontos de partida e chegada.");
         setShowJourneyInput(true);
@@ -95,7 +95,7 @@ export default function StopsMatrix({ count, onBack }) {
         return (
             <JourneyInputForm
                 count={count}
-                formattedMatrix={journeyMatrix} // 🔹 passa o formattedMatrix para o outro componente
+                formattedMatrix={journeyMatrix} // passa o formattedMatrix para o outro componente
                 onConfirm={handleJourneyConfirm}
                 onBack={handleBackFromJourneyInput}
             />
