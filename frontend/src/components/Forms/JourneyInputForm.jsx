@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../services/api';
+import RotaResumo from '../../components/RotaResumo/RotaResumo.jsx';
 
 export default function JourneyInputForm({ count, onConfirm, onBack, formattedMatrix }) {
     const [startPoint, setStartPoint] = useState('');
     const [endPoint, setEndPoint] = useState('');
+    const [respostaGrafo, setRespostaGrafo] = useState(null); // Armazena o response.data
 
     const getPointName = (index) => String.fromCharCode(65 + index);
 
@@ -14,20 +16,21 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
             return;
         }
 
-        // Converte o formattedMatrix para matriz numérica 2D
+        // Converte formattedMatrix para matriz numérica
         const numericMatrix = formattedMatrix.map(row =>
             row.dados.map(cell => (cell.checked ? Number(cell.value) : 0))
         );
 
         try {
             const response = await api.post("/api/grafo/processar", {
-                origem: startPoint.charCodeAt(0) - 65, // 'A' -> 0
-                destino: endPoint.charCodeAt(0) - 65,   // 'B' -> 1
+                origem: startPoint.charCodeAt(0) - 65,
+                destino: endPoint.charCodeAt(0) - 65,
                 matriz: numericMatrix
             });
 
             console.log("Resposta do backend:", response.data);
             toast.success("Jornada enviada com sucesso!");
+            setRespostaGrafo(response.data); // Salva a resposta para exibição do caminho
 
             if (onConfirm) {
                 onConfirm({ startPoint, endPoint });
@@ -54,9 +57,7 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
 
             <div className="flex flex-col items-center justify-center my-4 gap-4">
                 <div className="flex flex-col items-center gap-2">
-                    <label htmlFor="startPoint" className="font-mono font-bold">
-                        Ponto de Partida:
-                    </label>
+                    <label htmlFor="startPoint" className="font-mono font-bold">Ponto de Partida:</label>
                     <select
                         id="startPoint"
                         className="w-80 h-10 border-2 border-black bg-white rounded-lg px-2 text-center font-mono"
@@ -71,9 +72,7 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
                 </div>
 
                 <div className="flex flex-col items-center gap-2">
-                    <label htmlFor="endPoint" className="font-mono font-bold">
-                        Ponto de Chegada:
-                    </label>
+                    <label htmlFor="endPoint" className="font-mono font-bold">Ponto de Chegada:</label>
                     <select
                         id="endPoint"
                         className="w-80 h-10 border-2 border-black bg-white rounded-lg px-2 text-center font-mono"
@@ -94,6 +93,9 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
                     Confirmar Jornada
                 </button>
             </div>
+
+            {/* Exibe o resumo do caminho mínimo */}
+            {respostaGrafo && <RotaResumo data={respostaGrafo} />}
         </div>
     );
 }
