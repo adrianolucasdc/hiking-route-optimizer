@@ -15,8 +15,8 @@ export default function JourneyForm() {
             return;
         }
 
-        if (count < 2 || count > 12) {
-            toast.error("O número de Pontos deve ser entre 2 e 12.");
+        if (count < 2 || count > 26) {
+            toast.error("O número de Pontos deve ser entre 2 e 26.");
             return;
         }
 

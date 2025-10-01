@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import JourneyReport from '../Relatorio/JourneyReport'; // 1. Importe o novo componente de relatório
+import JourneyInputForm from '../Forms/JourneyInputForm.jsx';
 
 const getPointName = (index) => String.fromCharCode(65 + index);
 
 export default function StopsMatrix({ count, onBack }) {
     const [matrix, setMatrix] = useState([]);
     const [currentRowIndex, setCurrentRowIndex] = useState(0);
-    const [isFinished, setIsFinished] = useState(false); // 2. Estado para controlar a finalização
+    const [showJourneyInput, setShowJourneyInput] = useState(false);
+    const [journeyMatrix, setJourneyMatrix] = useState(null); // 🔹 Guarda o formattedMatrix
 
     useEffect(() => {
         const initialMatrix = Array.from({ length: count }, () =>
@@ -15,10 +16,10 @@ export default function StopsMatrix({ count, onBack }) {
         );
         setMatrix(initialMatrix);
         setCurrentRowIndex(0);
-        setIsFinished(false); // Reseta o estado de finalização ao mudar a contagem
+        setShowJourneyInput(false);
+        setJourneyMatrix(null);
     }, [count]);
 
-    // ... (as funções handleValueChange e handleCheckboxChange permanecem as mesmas)
     const handleValueChange = (colIndex, value) => {
         const newMatrix = [...matrix];
         newMatrix[currentRowIndex][colIndex].value = value;
@@ -29,7 +30,7 @@ export default function StopsMatrix({ count, onBack }) {
         const newMatrix = [...matrix];
         const cell = newMatrix[currentRowIndex][colIndex];
         const isChecked = !cell.checked;
-        
+
         newMatrix[currentRowIndex][colIndex] = {
             ...cell,
             checked: isChecked,
@@ -37,7 +38,6 @@ export default function StopsMatrix({ count, onBack }) {
         };
         setMatrix(newMatrix);
     };
-
 
     const handleNext = () => {
         const currentRow = matrix[currentRowIndex];
@@ -68,18 +68,39 @@ export default function StopsMatrix({ count, onBack }) {
             toast.error("Por favor, preencha o valor para as conexões marcadas.");
             return;
         }
-        
-        console.log("Dados Finais da Matriz:", matrix);
-        toast.success("Jornada configurada com sucesso!");
-        setIsFinished(true); // 3. Ativa o modo de relatório
+
+        const formattedMatrix = matrix.map((row, index) => ({
+            ponto: getPointName(index),
+            dados: row
+        }));
+
+        // 🔹 Agora não faz mais console.log aqui
+        setJourneyMatrix(formattedMatrix); // guarda no estado
+        toast.success("Jornada configurada com sucesso! Agora defina os pontos de partida e chegada.");
+        setShowJourneyInput(true);
     };
 
-    // 4. Renderiza o relatório se a jornada estiver finalizada
-    if (isFinished) {
-        return <JourneyReport matrix={matrix} onBack={onBack} />;
-    }
+    const handleJourneyConfirm = ({ startPoint, endPoint }) => {
+        console.log(`Jornada confirmada: De ${startPoint} para ${endPoint}`);
+        toast.info(`Jornada de ${startPoint} para ${endPoint} confirmada!`);
+    };
+
+    const handleBackFromJourneyInput = () => {
+        setShowJourneyInput(false);
+    };
 
     if (matrix.length === 0) return null;
+
+    if (showJourneyInput) {
+        return (
+            <JourneyInputForm
+                count={count}
+                formattedMatrix={journeyMatrix} // 🔹 passa o formattedMatrix para o outro componente
+                onConfirm={handleJourneyConfirm}
+                onBack={handleBackFromJourneyInput}
+            />
+        );
+    }
 
     const currentRow = matrix[currentRowIndex];
 
@@ -107,7 +128,7 @@ export default function StopsMatrix({ count, onBack }) {
                             </div>
                         );
                     }
-                    
+
                     const isReverseChecked = matrix[colIndex]?.[currentRowIndex]?.checked;
                     if (isReverseChecked) {
                         return (
