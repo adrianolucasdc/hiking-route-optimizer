@@ -21,8 +21,8 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
 
         try {
             const response = await api.post("/api/grafo/processar", {
-                origem: startPoint.charCodeAt(0) - 65, // 'A' -> 0
-                destino: endPoint.charCodeAt(0) - 65,   // 'B' -> 1
+                origem: startPoint,
+                destino: endPoint,
                 matriz: numericMatrix
             });
 
