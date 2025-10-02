@@ -1,8 +1,5 @@
 package com.example.hiking_route.dto;
 
-/**
- * DTO para resposta completa contendo caminho mínimo e máximo
- */
 public class GrafoResponse {
     
     private CaminhoResponse caminhoMinimo;
