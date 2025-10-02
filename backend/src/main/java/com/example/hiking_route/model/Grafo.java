@@ -1,8 +1,5 @@
 package com.example.hiking_route.model;
 
-/**
- * Modelo para representar um grafo através de matriz de adjacência
- */
 public class Grafo {
     
     private double[][] matrizAdjacencia;
@@ -26,9 +23,6 @@ public class Grafo {
         return numeroVertices;
     }
     
-    /**
-     * Verifica se existe uma aresta entre dois vértices
-     */
     public boolean existeAresta(int origem, int destino) {
         if (origem < 0 || origem >= numeroVertices || destino < 0 || destino >= numeroVertices) {
             return false;
@@ -36,9 +30,6 @@ public class Grafo {
         return matrizAdjacencia[origem][destino] != 0;
     }
     
-    /**
-     * Obtém o peso da aresta entre dois vértices
-     */
     public double getPeso(int origem, int destino) {
         if (!existeAresta(origem, destino)) {
             return Double.POSITIVE_INFINITY;
@@ -46,9 +37,6 @@ public class Grafo {
         return matrizAdjacencia[origem][destino];
     }
     
-    /**
-     * Valida se o grafo é válido (matriz quadrada e não nula)
-     */
     public boolean isValido() {
         if (matrizAdjacencia == null || numeroVertices == 0) {
             return false;
