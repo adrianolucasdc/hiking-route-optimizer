@@ -3,9 +3,6 @@ package com.example.hiking_route.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * DTO para receber a matriz de adjacência do grafo do frontend
- */
 public class GrafoRequest {
     
     @NotNull(message = "A matriz não pode ser nula")
