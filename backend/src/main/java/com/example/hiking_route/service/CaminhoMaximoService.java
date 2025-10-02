@@ -6,21 +6,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-/**
- * Serviço para encontrar o caminho máximo em um grafo
- * Utiliza uma variação do algoritmo de Dijkstra com pesos negativos
- */
 @Service
 public class CaminhoMaximoService {
 
-    /**
-     * Encontra o caminho máximo entre dois vértices
-     * Usa o algoritmo de Dijkstra modificado (multiplicando pesos por -1)
-     */
     public CaminhoResponse encontrarCaminhoMaximo(Grafo grafo, int origem, int destino) {
         int n = grafo.getNumeroVertices();
         
-        // Validações básicas
         if (origem < 0 || origem >= n || destino < 0 || destino >= n) {
             return new CaminhoResponse(
                 Collections.emptyList(), 
@@ -31,7 +22,6 @@ public class CaminhoMaximoService {
             );
         }
 
-        // Verificar se há ciclos positivos (que tornariam o caminho máximo infinito)
         if (temCicloPositivo(grafo)) {
             return new CaminhoResponse(
                 Collections.emptyList(), 
@@ -42,19 +32,16 @@ public class CaminhoMaximoService {
             );
         }
 
-        // Arrays para armazenar distâncias e predecessores
         double[] distancias = new double[n];
         int[] predecessores = new int[n];
         boolean[] visitados = new boolean[n];
 
-        // Inicialização (para caminho máximo, começamos com -infinito)
         Arrays.fill(distancias, Double.NEGATIVE_INFINITY);
         Arrays.fill(predecessores, -1);
         distancias[origem] = 0;
 
-        // Fila de prioridade para selecionar o vértice com maior distância
         PriorityQueue<Integer> filaPrioridade = new PriorityQueue<>(
-            (v1, v2) -> Double.compare(distancias[v2], distancias[v1]) // Ordem decrescente
+            (v1, v2) -> Double.compare(distancias[v2], distancias[v1])
         );
         filaPrioridade.offer(origem);
 
@@ -64,10 +51,8 @@ public class CaminhoMaximoService {
             if (visitados[u]) continue;
             visitados[u] = true;
 
-            // Se chegamos ao destino, podemos parar
             if (u == destino) break;
 
-            // Relaxamento das arestas (para caminho máximo)
             for (int v = 0; v < n; v++) {
                 if (!visitados[v] && grafo.existeAresta(u, v)) {
                     double peso = grafo.getPeso(u, v);
@@ -82,7 +67,6 @@ public class CaminhoMaximoService {
             }
         }
 
-        // Construir o caminho
         if (distancias[destino] == Double.NEGATIVE_INFINITY) {
             return new CaminhoResponse(
                 Collections.emptyList(), 
@@ -104,18 +88,14 @@ public class CaminhoMaximoService {
         );
     }
 
-    /**
-     * Verifica se o grafo tem ciclo positivo usando algoritmo de Bellman-Ford modificado
-     */
+
     private boolean temCicloPositivo(Grafo grafo) {
         int n = grafo.getNumeroVertices();
         double[] distancias = new double[n];
         
-        // Inicializar distâncias
         Arrays.fill(distancias, Double.NEGATIVE_INFINITY);
-        distancias[0] = 0; // Começar do vértice 0
+        distancias[0] = 0; 
         
-        // Relaxar arestas n-1 vezes
         for (int i = 0; i < n - 1; i++) {
             for (int u = 0; u < n; u++) {
                 if (distancias[u] != Double.NEGATIVE_INFINITY) {
@@ -131,14 +111,13 @@ public class CaminhoMaximoService {
             }
         }
         
-        // Verificar se ainda é possível relaxar (indica ciclo positivo)
         for (int u = 0; u < n; u++) {
             if (distancias[u] != Double.NEGATIVE_INFINITY) {
                 for (int v = 0; v < n; v++) {
                     if (grafo.existeAresta(u, v)) {
                         double peso = grafo.getPeso(u, v);
                         if (distancias[u] + peso > distancias[v]) {
-                            return true; // Ciclo positivo encontrado
+                            return true; 
                         }
                     }
                 }
@@ -148,9 +127,7 @@ public class CaminhoMaximoService {
         return false;
     }
 
-    /**
-     * Constrói o caminho a partir do array de predecessores
-     */
+
     private List<Integer> construirCaminho(int[] predecessores, int origem, int destino) {
         List<Integer> caminho = new ArrayList<>();
         int atual = destino;
