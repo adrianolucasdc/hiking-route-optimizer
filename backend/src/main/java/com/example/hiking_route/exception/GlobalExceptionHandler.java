@@ -12,15 +12,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Handler global para tratamento de exceções da API
- */
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    /**
-     * Trata exceções de validação de entrada
-     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, Object> errors = new HashMap<>();
@@ -39,9 +34,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-    /**
-     * Trata exceções de matriz inválida
-     */
     @ExceptionHandler(MatrizInvalidaException.class)
     public ResponseEntity<GrafoResponse> handleMatrizInvalidaException(MatrizInvalidaException ex) {
         GrafoResponse response = new GrafoResponse(
@@ -54,9 +46,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    /**
-     * Trata exceções de vértice inválido
-     */
     @ExceptionHandler(VerticeInvalidoException.class)
     public ResponseEntity<GrafoResponse> handleVerticeInvalidoException(VerticeInvalidoException ex) {
         GrafoResponse response = new GrafoResponse(
@@ -69,9 +58,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    /**
-     * Trata exceções gerais de grafo
-     */
     @ExceptionHandler(GrafoException.class)
     public ResponseEntity<GrafoResponse> handleGrafoException(GrafoException ex) {
         GrafoResponse response = new GrafoResponse(
@@ -84,9 +70,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    /**
-     * Trata exceções não previstas
-     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGenericException(Exception ex) {
         Map<String, Object> error = new HashMap<>();
@@ -97,9 +80,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
-    /**
-     * Trata exceções de argumento ilegal
-     */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(IllegalArgumentException ex) {
         Map<String, Object> error = new HashMap<>();
