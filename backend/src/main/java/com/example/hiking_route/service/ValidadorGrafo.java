@@ -4,15 +4,9 @@ import com.example.hiking_route.exception.MatrizInvalidaException;
 import com.example.hiking_route.exception.VerticeInvalidoException;
 import org.springframework.stereotype.Component;
 
-/**
- * Componente para validação de dados de grafo
- */
 @Component
 public class ValidadorGrafo {
 
-    /**
-     * Valida a matriz de adjacência
-     */
     public void validarMatriz(double[][] matriz) {
         if (matriz == null) {
             throw new MatrizInvalidaException("Matriz não pode ser nula");
@@ -24,7 +18,6 @@ public class ValidadorGrafo {
         
         int n = matriz.length;
         
-        // Verificar se é uma matriz quadrada
         for (int i = 0; i < n; i++) {
             if (matriz[i] == null) {
                 throw new MatrizInvalidaException("Linha " + i + " da matriz é nula");
@@ -38,7 +31,6 @@ public class ValidadorGrafo {
             }
         }
         
-        // Verificar valores válidos (não negativos para Dijkstra)
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 double valor = matriz[i][j];
@@ -59,9 +51,6 @@ public class ValidadorGrafo {
         }
     }
 
-    /**
-     * Valida os vértices de origem e destino
-     */
     public void validarVertices(int origem, int destino, int numeroVertices) {
         if (origem < 0 || origem >= numeroVertices) {
             throw new VerticeInvalidoException(
@@ -78,21 +67,16 @@ public class ValidadorGrafo {
         }
     }
 
-    /**
-     * Valida se o grafo tem pelo menos um caminho possível
-     */
     public void validarConectividade(double[][] matriz, int origem, int destino) {
         int n = matriz.length;
         boolean[][] alcancavel = new boolean[n][n];
         
-        // Inicializar com arestas diretas
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 alcancavel[i][j] = (i == j) || (matriz[i][j] > 0);
             }
         }
         
-        // Algoritmo de Floyd-Warshall para verificar alcançabilidade
         for (int k = 0; k < n; k++) {
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
@@ -108,13 +92,9 @@ public class ValidadorGrafo {
         }
     }
 
-    /**
-     * Validação completa de uma requisição de grafo
-     */
+
     public void validarCompleto(double[][] matriz, int origem, int destino) {
         validarMatriz(matriz);
         validarVertices(origem, destino, matriz.length);
-        // Nota: validação de conectividade é opcional pois pode ser custosa para grafos grandes
-        // validarConectividade(matriz, origem, destino);
     }
 }
