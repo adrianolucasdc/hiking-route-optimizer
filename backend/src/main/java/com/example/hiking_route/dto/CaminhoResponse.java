@@ -2,14 +2,11 @@ package com.example.hiking_route.dto;
 
 import java.util.List;
 
-/**
- * DTO para resposta contendo informações sobre o caminho encontrado
- */
 public class CaminhoResponse {
     
     private List<Integer> caminho;
     private double custo;
-    private String tipo; // "MINIMO" ou "MAXIMO"
+    private String tipo; 
     private boolean caminhoEncontrado;
     private String mensagem;
 
