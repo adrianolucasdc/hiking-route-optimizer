@@ -7,9 +7,6 @@ import com.example.hiking_route.model.Grafo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Serviço principal para coordenar operações de grafo
- */
 @Service
 public class GrafoService {
 
@@ -22,28 +19,21 @@ public class GrafoService {
     @Autowired
     private ValidadorGrafo validadorGrafo;
 
-    /**
-     * Processa uma requisição de grafo e retorna ambos os caminhos (mínimo e máximo)
-     */
+
     public GrafoResponse processarGrafo(GrafoRequest request) {
         try {
-            // Validar entrada
             validadorGrafo.validarCompleto(request.getMatriz(), request.getOrigem(), request.getDestino());
             
-            // Criar o grafo a partir da matriz
             Grafo grafo = new Grafo(request.getMatriz());
 
-            // Encontrar caminho mínimo
             CaminhoResponse caminhoMinimo = dijkstraService.encontrarCaminhoMinimo(
                 grafo, request.getOrigem(), request.getDestino()
             );
 
-            // Encontrar caminho máximo
             CaminhoResponse caminhoMaximo = caminhoMaximoService.encontrarCaminhoMaximo(
                 grafo, request.getOrigem(), request.getDestino()
             );
 
-            // Determinar status geral
             String status = "SUCESSO";
             if (!caminhoMinimo.isCaminhoEncontrado() && !caminhoMaximo.isCaminhoEncontrado()) {
                 status = "NENHUM_CAMINHO_ENCONTRADO";
@@ -68,12 +58,9 @@ public class GrafoService {
         }
     }
 
-    /**
-     * Processa apenas o caminho mínimo
-     */
+
     public CaminhoResponse processarCaminhoMinimo(GrafoRequest request) {
         try {
-            // Validar entrada
             validadorGrafo.validarCompleto(request.getMatriz(), request.getOrigem(), request.getDestino());
             
             Grafo grafo = new Grafo(request.getMatriz());
@@ -84,12 +71,8 @@ public class GrafoService {
         }
     }
 
-    /**
-     * Processa apenas o caminho máximo
-     */
     public CaminhoResponse processarCaminhoMaximo(GrafoRequest request) {
         try {
-            // Validar entrada
             validadorGrafo.validarCompleto(request.getMatriz(), request.getOrigem(), request.getDestino());
             
             Grafo grafo = new Grafo(request.getMatriz());
