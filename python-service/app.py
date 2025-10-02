@@ -23,7 +23,6 @@ def matrix_to_graph(matrix, directed=True):
     for i in range(n):
         for j in range(n):
             w = mat[i, j]
-            # considera aresta se não for zero, não-nan e não None
             if w is None:
                 continue
             try:
@@ -35,7 +34,6 @@ def matrix_to_graph(matrix, directed=True):
                 if float(w) != 0.0:
                     G.add_edge(i, j, weight=float(w))
             except:
-                # se não numérico, adiciona aresta sem peso
                 G.add_edge(i, j, weight=w)
     return G
 
@@ -46,19 +44,17 @@ def draw_graph_to_png_bytes(G, labels=None, k=None, figsize=(8,6), show_edge_wei
     - k: parâmetro do spring_layout (float) — distância "ideal" entre nós
     """
     plt.figure(figsize=figsize)
-    # layout
+
     if k is not None:
         pos = nx.spring_layout(G, k=float(k), seed=42)
     else:
         pos = nx.spring_layout(G, seed=42)
 
-    # node labels
     if labels:
         node_labels = {i: str(labels[i]) for i in G.nodes()}
     else:
         node_labels = {i: str(i) for i in G.nodes()}
 
-    # draw
     nx.draw_networkx_nodes(G, pos, node_size=700)
     nx.draw_networkx_edges(
         G,
@@ -66,8 +62,8 @@ def draw_graph_to_png_bytes(G, labels=None, k=None, figsize=(8,6), show_edge_wei
         arrows=G.is_directed(),
         arrowstyle='-|>',
         arrowsize=12,
-        min_source_margin=15,   # distância da seta em relação ao nó de origem
-        min_target_margin=15    # distância da seta em relação ao nó de destino
+        min_source_margin=15,   
+        min_target_margin=15    
     )
     nx.draw_networkx_labels(G, pos, labels=node_labels, font_size=10)
 
@@ -109,7 +105,7 @@ def graph_endpoint():
     matrix = data['matrix']
     directed = True
 
-    n = 65  # ASCII 'A'
+    n = 65  
     labels = []
     for n in range(len(data['matrix'])):
         labels.append(chr(n + 65))
@@ -123,7 +119,6 @@ def graph_endpoint():
     except Exception as e:
         return jsonify({"error": "erro ao converter matriz em grafo", "details": str(e)}), 400
 
-    # validação simples de labels
     if labels is not None:
         if len(labels) != G.number_of_nodes():
             return jsonify({"error": "tamanho de 'labels' diferente do número de nós"}), 400
