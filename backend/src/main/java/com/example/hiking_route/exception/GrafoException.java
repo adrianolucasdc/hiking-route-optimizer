@@ -1,0 +1,12 @@
+package com.example.hiking_route.exception;
+
+public class GrafoException extends RuntimeException {
+    
+    public GrafoException(String message) {
+        super(message);
+    }
+    
+    public GrafoException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
