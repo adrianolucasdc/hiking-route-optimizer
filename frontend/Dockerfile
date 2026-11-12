@@ -1,11 +1,10 @@
 # build
 FROM node:20 AS builder
 WORKDIR /app
-COPY package.json ./
-COPY package-lock.json ./
+COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-RUN npm run dev
+RUN npm run build
 
 # serve
 FROM nginx:stable-alpine
