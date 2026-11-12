@@ -1,22 +1,44 @@
 package com.example.hiking_route.model;
 
 public class Grafo {
-    
+
     private double[][] matrizAdjacencia;
     private int numeroVertices;
-    
+
     public Grafo(double[][] matrizAdjacencia) {
-        this.matrizAdjacencia = matrizAdjacencia;
-        this.numeroVertices = matrizAdjacencia.length;
+        if (matrizAdjacencia == null) {
+            this.matrizAdjacencia = new double[0][0];
+            this.numeroVertices = 0;
+        } else {
+            this.matrizAdjacencia = matrizAdjacencia;
+            this.numeroVertices = matrizAdjacencia.length;
+        }
     }
-    
+
     public double[][] getMatrizAdjacencia() {
-        return matrizAdjacencia;
+        // Return defensive copy to prevent external mutation
+        if (matrizAdjacencia == null) {
+            return new double[0][0];
+        }
+        double[][] copy = new double[matrizAdjacencia.length][];
+        for (int i = 0; i < matrizAdjacencia.length; i++) {
+            if (matrizAdjacencia[i] != null) {
+                copy[i] = matrizAdjacencia[i].clone();
+            } else {
+                copy[i] = new double[0];
+            }
+        }
+        return copy;
     }
-    
+
     public void setMatrizAdjacencia(double[][] matrizAdjacencia) {
-        this.matrizAdjacencia = matrizAdjacencia;
-        this.numeroVertices = matrizAdjacencia.length;
+        if (matrizAdjacencia == null) {
+            this.matrizAdjacencia = new double[0][0];
+            this.numeroVertices = 0;
+        } else {
+            this.matrizAdjacencia = matrizAdjacencia;
+            this.numeroVertices = matrizAdjacencia.length;
+        }
     }
     
     public int getNumeroVertices() {
