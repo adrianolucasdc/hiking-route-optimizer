@@ -17,12 +17,18 @@ services:
       start_period: 40s
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE: http://backend:8080
+        VITE_PYTHON_BASE: http://python-service:5000
     container_name: hiking-frontend
     ports:
       - "3000:80"
     depends_on:
       backend:
+        condition: service_healthy
+      python-service:
         condition: service_healthy
     restart: unless-stopped
     networks:
