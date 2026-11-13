@@ -51,7 +51,7 @@ public class BenchmarkRunner {
                 BenchmarkResult resultado = executarAlgoritmo(finder, gb);
                 resultados.add(resultado);
 
-                System.out.printf("   %s: %.2fms | expandidos=%d | visitados=%d | %s%n",
+                System.out.printf("   %s: %.2fms | expandidos=%.0f | visitados=%.0f | %s%n",
                     finder.getNome(),
                     resultado.tempoMedioMs(),
                     resultado.nosExpandidosMedio(),
@@ -173,7 +173,7 @@ public class BenchmarkRunner {
                 pw.println("|-----------|------------------|----------------|---------------|");
 
                 for (BenchmarkResult r : entry.getValue()) {
-                    pw.printf("| %s | %.2f | %d | %d |%n",
+                    pw.printf("| %s | %.2f | %.0f | %.0f |%n",
                         r.algoritmo(), r.tempoMedioMs(), r.nosExpandidosMedio(), r.nosVisitadosMedio());
                 }
                 pw.println();

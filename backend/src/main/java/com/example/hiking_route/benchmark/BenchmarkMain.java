@@ -81,7 +81,7 @@ public class BenchmarkMain {
             if (r.grafo().contains("Grade") &&
                 (r.algoritmo().equals("Dijkstra (Min-Heap)") ||
                  r.algoritmo().contains("MANHATTAN"))) {
-                System.out.printf("  %s: %-35s %.2fms | expandidos=%d%n",
+                System.out.printf("  %s: %-35s %.2fms | expandidos=%.0f%n",
                     r.grafo(), r.algoritmo(), r.tempoMedioMs(), r.nosExpandidosMedio());
             }
         }

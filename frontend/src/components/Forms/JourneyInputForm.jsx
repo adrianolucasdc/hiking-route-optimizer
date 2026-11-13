@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import api from '../../services/api';
+import python_api from '../../services/python-api.jsx';
 import RotaResumo from '../../components/RotaResumo/RotaResumo.jsx';
 
 export default function JourneyInputForm({ count, onConfirm, onBack, formattedMatrix }) {
@@ -26,6 +27,10 @@ export default function JourneyInputForm({ count, onConfirm, onBack, formattedMa
                 destino: endPoint.charCodeAt(0) - 65,
                 matriz: numericMatrix
             });
+
+            const response_graph = await python_api.post("/graph", {
+                matrix: numericMatrix,
+            })
 
             console.log("Resposta do backend:", response.data);
             toast.success("Jornada enviada com sucesso!");

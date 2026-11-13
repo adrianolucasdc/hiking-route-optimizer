@@ -1,10 +1,12 @@
 from flask import Flask, request, send_file, jsonify
+from flask_cors import CORS
 import io
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/health', methods=['GET'])
 def health_check():

@@ -1,10 +1,16 @@
 package com.example.hiking_route.service;
 
-import com.example.hiking_route.dto.CaminhoResponse;
-import com.example.hiking_route.model.Grafo;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
+
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import com.example.hiking_route.dto.CaminhoResponse;
+import com.example.hiking_route.model.Grafo;
 
 @Service
 public class DijkstraService {
