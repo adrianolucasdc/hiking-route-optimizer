@@ -507,10 +507,10 @@ function MatrixInput({ vertexCount, vertexLabels, matrix, onMatrixChange, t, sho
               <tr key={i} className="matrix-row">
                 <th className="matrix-row-th w-12">{label}</th>
                 {displayLabels.map((_, j) => (
-                  <td key={j} className="matrix-td">
+                  <td key={j} className="matrix-td p-1">
                     {i === j ? (
                       // Diagonal cells - just text, no input
-                      <div className="w-10 h-10 flex items-center justify-center font-mono text-text-disabled text-sm">
+                      <div className="w-full h-10 flex items-center justify-center font-mono text-text-disabled text-sm">
                         0
                       </div>
                     ) : (
@@ -520,7 +520,7 @@ function MatrixInput({ vertexCount, vertexLabels, matrix, onMatrixChange, t, sho
                         step="0.1"
                         value={matrix[i]?.[j] === 0 ? '' : matrix[i]?.[j] ?? ''}
                         onChange={(e) => onMatrixChange(i, j, e.target.value)}
-                        className={`input-mono w-10 h-10 ${matrix[i]?.[j] > 0 ? 'bg-cell-filled border-cell-filled-border text-accent' : ''}`}
+                        className={`input-mono w-full h-10 ${matrix[i]?.[j] > 0 ? 'bg-cell-filled border-cell-filled-border text-accent' : ''}`}
                         placeholder={i < j ? 'weight' : '0'}
                         title={`${label}→${displayLabels[j]}`}
                         aria-label={`${label} to ${displayLabels[j]}`}
