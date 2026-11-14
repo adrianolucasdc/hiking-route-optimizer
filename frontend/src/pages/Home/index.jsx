@@ -5,25 +5,25 @@ import Footer from '../../components/Footer';
 import HikingRouteForm from '../../components/Forms/HikingRouteForm';
 
 function HomeContent() {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark'); // dark is default
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const initial = saved || (prefersDark ? 'dark' : 'light');
     setTheme(initial);
-    document.documentElement.classList.toggle('dark', initial === 'dark');
+    document.documentElement.classList.toggle('light', initial === 'light');
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    document.documentElement.classList.toggle('light', newTheme === 'light');
   };
 
   return (
-    <div className="min-h-screen bg-trail-50 dark:bg-trail-950 flex flex-col">
+    <div className="min-h-screen bg-bg flex flex-col">
       <Header currentTheme={theme} onThemeChange={toggleTheme} />
 
       <main className="flex-1 pt-20 pb-16 px-4">
