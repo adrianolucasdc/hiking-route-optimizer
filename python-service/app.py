@@ -143,7 +143,7 @@ def compute_grid_positions(G, grid_size):
 
 def draw_hiking_trail_graph(G, labels=None, path=None, terrain_types=None, elevations=None,
                              grid_size=None, figsize=(12, 10), show_edge_weights=False,
-                             cell_size_meters=10, allow_diagonals=True):
+                             cell_size_meters=10, allow_diagonals=True, matrix=None):
     """
     Draw a hiking trail style graph visualization.
 
@@ -445,7 +445,8 @@ def graph_endpoint():
             figsize=figsize,
             show_edge_weights=show_edge_weights,
             cell_size_meters=cell_size_meters,
-            allow_diagonals=allow_diagonals
+            allow_diagonals=allow_diagonals,
+            matrix=matrix
         )
         return send_file(buf, mimetype='image/png', as_attachment=False, download_name='hiking-trail-map.png')
     except Exception as e:
