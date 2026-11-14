@@ -218,9 +218,10 @@ export default function HikingRouteForm() {
             <select
               value={heuristic}
               onChange={(e) => setHeuristic(e.target.value)}
-              className="input-compact w-full md:w-64 appearance-none bg-no-repeat bg-right-3 bg-center pr-10"
+              className="input-compact w-full md:w-64 appearance-none bg-no-repeat bg-right bg-center pr-10"
               style={{
-                backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%2371717a\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M6 8l4 4 4-4\'/%3e%3c/svg%3e")'
+                backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%2371717a\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M6 8l4 4 4-4\'/%3e%3c/svg%3e")',
+                backgroundSize: '16px 16px'
               }}
             >
               <option value="MANHATTAN">{t('heuristicManhattan')}</option>
@@ -302,7 +303,7 @@ export default function HikingRouteForm() {
                 <select
                   value={origin}
                   onChange={handleOriginChange}
-                  className="input-compact w-full appearance-none bg-no-repeat bg-right-3 bg-center pr-10"
+                  className="input-compact w-full appearance-none bg-no-repeat bg-right bg-center pr-10"
                   style={{
                     backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%2371717a\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M6 8l4 4 4-4\'/%3e%3c/svg%3e")',
                     backgroundSize: '16px 16px'
@@ -319,7 +320,7 @@ export default function HikingRouteForm() {
                 <select
                   value={destination}
                   onChange={handleDestinationChange}
-                  className="input-compact w-full appearance-none bg-no-repeat bg-right-3 bg-center pr-10"
+                  className="input-compact w-full appearance-none bg-no-repeat bg-right bg-center pr-10"
                   style={{
                     backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%2371717a\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M6 8l4 4 4-4\'/%3e%3c/svg%3e")',
                     backgroundSize: '16px 16px'

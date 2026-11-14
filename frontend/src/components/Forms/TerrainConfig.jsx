@@ -348,10 +348,11 @@ function TerrainTypeGrid({ vertexCount, vertexLabels, terrainTypes, onChange, ge
                   <select
                     value={terrainTypes[i]?.[j] ?? 'TERRA_BATIDA'}
                     onChange={(e) => onChange(i, j, e.target.value)}
-                    className="input-compact w-full h-10 appearance-none bg-no-repeat bg-right-3 bg-center pr-8 cursor-pointer"
+                    className="input-compact w-full h-10 appearance-none bg-no-repeat bg-right bg-center pr-8 cursor-pointer"
                     style={{
                       backgroundColor: getTerrainColor(terrainTypes[i]?.[j] ?? 'TERRA_BATIDA') + '20',
-                      backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%2371717a\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M6 8l4 4 4-4\'/%3e%3c/svg%3e")'
+                      backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%2371717a\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M6 8l4 4 4-4\'/%3e%3c/svg%3e")',
+                      backgroundSize: '16px 16px'
                     }}
                   >
                     {passableTypes.map(t => (
