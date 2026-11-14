@@ -141,6 +141,13 @@ export default function HikingRouteForm() {
           directed: true,
           labels: vertexLabels,
           path: response.data.caminhoMinimo?.caminhoEncontrado ? response.data.caminhoMinimo.caminho : null,
+          // Include terrain data if advanced config is enabled
+          terrainTypes: showTerrainConfig ? terrainConfig.terrainTypes : null,
+          elevations: showTerrainConfig ? terrainConfig.elevation : null,
+          cellSizeMeters: showTerrainConfig ? terrainConfig.cellSizeMeters : 10,
+          allowDiagonals: showTerrainConfig ? terrainConfig.allowDiagonals : true,
+          showEdgeWeights: true,
+          figsize: [12, 10],
         };
         const graphResponse = await pythonGraphApi.generateGraph(graphPayload);
         const imageUrl = URL.createObjectURL(graphResponse.data);
