@@ -58,6 +58,30 @@
     --color-cell-empty-light: #fafafa;    /* empty cell background */
     --color-cell-filled-light: #ea580c1a; /* filled cell background (10% accent) */
     --color-cell-filled-border-light: #ea580c40; /* filled cell border (25% accent) */
+
+    /* Semantic colors - light mode */
+    --color-success-bg-light: #16a34a1a; /* 10% opacity */
+    --color-warning-bg-light: #f59e0b1a; /* 10% opacity */
+    --color-error-bg-light: #ef44441a;   /* 10% opacity */
+    --color-accent-muted-light: #ea580c33; /* 20% opacity for focus rings */
+
+    /* Terrain difficulty colors (semantic, work in both themes) */
+    --color-terrain-very-easy: #16a34a;      /* green-600 - cost <= 2 */
+    --color-terrain-easy: #22c55e;           /* green-500 - cost <= 3 */
+    --color-terrain-moderate: #84cc16;       /* lime-500 - cost <= 4 */
+    --color-terrain-challenging: #eab308;    /* yellow-500 - cost <= 5-6 */
+    --color-terrain-hard: #f97316;           /* orange-500 - cost <= 7-8 */
+    --color-terrain-extreme: #ef4444;        /* red-500 - cost >= 9 */
+    --color-terrain-impassable: #1f2937;     /* gray-800 - impassable */
+
+    /* Terrain colors with 20% opacity for backgrounds */
+    --color-terrain-very-easy-bg: #16a34a33;
+    --color-terrain-easy-bg: #22c55e33;
+    --color-terrain-moderate-bg: #84cc1633;
+    --color-terrain-challenging-bg: #eab30833;
+    --color-terrain-hard-bg: #f9731633;
+    --color-terrain-extreme-bg: #ef444433;
+    --color-terrain-impassable-bg: #1f293733;
 }
 
 @layer base {
@@ -84,6 +108,29 @@
 
     /* Light mode */
     .light {
+        /* Override @theme variables for Tailwind utilities (bg-bg, text-text-primary, etc.) */
+        --color-bg: #fafafa;
+        --color-surface: #ffffff;
+        --color-surface-elevated: #f4f4f5;
+        --color-border: #e4e4e7;
+        --color-border-strong: #d4d4d8;
+        --color-text-primary: #18181b;
+        --color-text-secondary: #52525b;
+        --color-text-muted: #71717a;
+        --color-text-disabled: #a1a1aa;
+        --color-input-bg: #ffffff;
+        --color-input-border: #e4e4e7;
+        --color-input-border-focus: #ea580c;
+        --color-cell-diagonal: #f4f4f5;
+        --color-cell-empty: #fafafa;
+        --color-cell-filled: #ea580c1a;
+        --color-cell-filled-border: #ea580c40;
+        --color-success-bg: #16a34a1a;
+        --color-warning-bg: #f59e0b1a;
+        --color-error-bg: #ef44441a;
+        --color-accent-muted: #ea580c33;
+
+        /* Manual CSS variables used in custom classes */
         --bg: #fafafa;
         --surface: #ffffff;
         --surface-elevated: #f4f4f5;
@@ -566,6 +613,44 @@
         background-color: var(--border);
         color: var(--text-secondary);
     }
+
+    /* Cell state utilities (used in matrix inputs) */
+    .bg-cell-filled {
+        background-color: var(--color-cell-filled);
+    }
+
+    .border-cell-filled-border {
+        border-color: var(--color-cell-filled-border);
+    }
+
+    .text-cell-filled {
+        color: var(--color-accent);
+    }
+
+    /* Terrain difficulty utilities (used in terrain config) */
+    .bg-terrain-very-easy { background-color: var(--color-terrain-very-easy-bg); }
+    .bg-terrain-easy { background-color: var(--color-terrain-easy-bg); }
+    .bg-terrain-moderate { background-color: var(--color-terrain-moderate-bg); }
+    .bg-terrain-challenging { background-color: var(--color-terrain-challenging-bg); }
+    .bg-terrain-hard { background-color: var(--color-terrain-hard-bg); }
+    .bg-terrain-extreme { background-color: var(--color-terrain-extreme-bg); }
+    .bg-terrain-impassable { background-color: var(--color-terrain-impassable-bg); }
+
+    .text-terrain-very-easy { color: var(--color-terrain-very-easy); }
+    .text-terrain-easy { color: var(--color-terrain-easy); }
+    .text-terrain-moderate { color: var(--color-terrain-moderate); }
+    .text-terrain-challenging { color: var(--color-terrain-challenging); }
+    .text-terrain-hard { color: var(--color-terrain-hard); }
+    .text-terrain-extreme { color: var(--color-terrain-extreme); }
+    .text-terrain-impassable { color: var(--color-terrain-impassable); }
+
+    .bg-terrain-very-easy-solid { background-color: var(--color-terrain-very-easy); }
+    .bg-terrain-easy-solid { background-color: var(--color-terrain-easy); }
+    .bg-terrain-moderate-solid { background-color: var(--color-terrain-moderate); }
+    .bg-terrain-challenging-solid { background-color: var(--color-terrain-challenging); }
+    .bg-terrain-hard-solid { background-color: var(--color-terrain-hard); }
+    .bg-terrain-extreme-solid { background-color: var(--color-terrain-extreme); }
+    .bg-terrain-impassable-solid { background-color: var(--color-terrain-impassable); }
 }
 
 /* Toast customizations */
