@@ -1,63 +1,63 @@
 grafo,algoritmo,vertices,arestas,tempo_min_ms,tempo_max_ms,tempo_mediano_ms,tempo_media_ms,tempo_desvio_ms,nos_expandidos_medio,nos_visitados_medio,encontrado,custo
-Grade 10x10 (densidade=70%),Dijkstra (Min-Heap),100,279,0,313,0,775,0,399,0,422,0,127,87,88,true,63,05
-Grade 10x10 (densidade=70%),BFS (não ponderado),100,279,0,146,0,594,0,487,0,441,0,149,99,100,true,18,00
-Grade 10x10 (densidade=70%),A* (heurística nula = Dijkstra),100,279,0,344,0,561,0,451,0,438,0,061,87,88,true,63,05
-Grade 10x10 (densidade=70%),A* (MANHATTAN),100,279,0,076,0,116,0,098,0,094,0,012,78,79,true,63,05
-Grade 10x10 (densidade=70%),A* (MANHATTAN),100,279,0,090,0,135,0,114,0,110,0,014,84,85,true,73,61
-Grade 10x10 (densidade=70%),A* (MANHATTAN),100,279,0,122,0,161,0,146,0,144,0,012,82,83,true,66,13
-Grade 10x10 (densidade=70%),A* (MANHATTAN),100,279,0,083,0,208,0,154,0,145,0,038,78,79,true,85,12
-Grade 10x10 (densidade=70%),A* (EUCLIDIANA),100,279,0,072,0,170,0,149,0,139,0,029,79,80,true,63,05
-Grade 10x10 (densidade=70%),A* (EUCLIDIANA),100,279,0,074,0,117,0,079,0,084,0,014,84,85,true,73,61
-Grade 10x10 (densidade=70%),A* (EUCLIDIANA),100,279,0,073,0,119,0,115,0,102,0,018,83,84,true,66,13
-Grade 10x10 (densidade=70%),A* (EUCLIDIANA),100,279,0,090,0,170,0,102,0,108,0,025,78,79,true,85,12
-Grade 20x20 (densidade=70%),Dijkstra (Min-Heap),400,1172,1,389,1,967,1,562,1,573,0,170,399,400,true,141,01
-Grade 20x20 (densidade=70%),BFS (não ponderado),400,1172,0,934,3,477,1,531,1,659,0,696,399,400,true,38,00
-Grade 20x20 (densidade=70%),A* (heurística nula = Dijkstra),400,1172,1,209,1,788,1,478,1,476,0,207,399,400,true,141,01
-Grade 20x20 (densidade=70%),A* (MANHATTAN),400,1172,0,707,8,021,1,088,1,690,2,120,396,397,true,141,01
-Grade 20x20 (densidade=70%),A* (MANHATTAN),400,1172,0,666,0,730,0,715,0,707,0,017,394,395,true,141,01
-Grade 20x20 (densidade=70%),A* (MANHATTAN),400,1172,1,001,1,419,1,039,1,092,0,118,396,397,true,156,87
-Grade 20x20 (densidade=70%),A* (MANHATTAN),400,1172,0,691,0,879,0,763,0,765,0,072,365,366,true,167,00
-Grade 20x20 (densidade=70%),A* (EUCLIDIANA),400,1172,0,703,1,141,0,765,0,820,0,142,396,397,true,141,01
-Grade 20x20 (densidade=70%),A* (EUCLIDIANA),400,1172,0,672,0,835,0,703,0,712,0,045,394,395,true,141,01
-Grade 20x20 (densidade=70%),A* (EUCLIDIANA),400,1172,0,664,0,919,0,743,0,740,0,071,399,400,true,145,83
-Grade 20x20 (densidade=70%),A* (EUCLIDIANA),400,1172,0,409,0,454,0,419,0,421,0,014,365,366,true,167,00
-Grade 30x30 (densidade=70%),Dijkstra (Min-Heap),900,2707,3,254,4,272,3,343,3,535,0,362,897,898,true,190,06
-Grade 30x30 (densidade=70%),BFS (não ponderado),900,2707,2,839,3,885,3,203,3,239,0,343,899,900,true,58,00
-Grade 30x30 (densidade=70%),A* (heurística nula = Dijkstra),900,2707,2,032,4,865,2,145,2,426,0,823,897,898,true,190,06
-Grade 30x30 (densidade=70%),A* (MANHATTAN),900,2707,1,964,4,689,2,440,2,695,0,783,862,863,true,190,06
-Grade 30x30 (densidade=70%),A* (MANHATTAN),900,2707,2,022,2,624,2,275,2,245,0,177,880,881,true,198,11
-Grade 30x30 (densidade=70%),A* (MANHATTAN),900,2707,1,920,3,355,2,254,2,393,0,479,864,865,true,190,06
-Grade 30x30 (densidade=70%),A* (MANHATTAN),900,2707,2,067,2,161,2,112,2,117,0,031,891,892,true,247,24
-Grade 30x30 (densidade=70%),A* (EUCLIDIANA),900,2707,2,008,2,888,2,024,2,223,0,324,870,871,true,190,06
-Grade 30x30 (densidade=70%),A* (EUCLIDIANA),900,2707,1,999,2,162,2,029,2,042,0,046,885,886,true,191,22
-Grade 30x30 (densidade=70%),A* (EUCLIDIANA),900,2707,1,941,2,832,2,427,2,372,0,376,871,872,true,190,06
-Grade 30x30 (densidade=70%),A* (EUCLIDIANA),900,2707,2,042,2,785,2,371,2,315,0,245,891,892,true,247,24
-Grade 50x50 (densidade=50%),Dijkstra (Min-Heap),2500,6030,13,880,16,292,14,750,14,900,0,674,2253,2254,true,373,26
-Grade 50x50 (densidade=50%),BFS (não ponderado),2500,6030,17,138,22,792,18,875,18,909,1,532,2299,2300,true,102,00
-Grade 50x50 (densidade=50%),A* (heurística nula = Dijkstra),2500,6030,13,630,16,913,14,184,14,629,1,078,2253,2254,true,373,26
-Grade 50x50 (densidade=50%),A* (MANHATTAN),2500,6030,10,197,12,934,11,496,11,232,0,834,1760,1761,true,375,28
-Grade 50x50 (densidade=50%),A* (MANHATTAN),2500,6030,13,166,16,022,14,174,14,310,0,906,2173,2174,true,390,18
-Grade 50x50 (densidade=50%),A* (MANHATTAN),2500,6030,13,767,16,362,14,742,14,711,0,744,2225,2226,true,387,61
-Grade 50x50 (densidade=50%),A* (MANHATTAN),2500,6030,12,788,15,047,13,426,13,501,0,725,2110,2111,true,373,26
-Grade 50x50 (densidade=50%),A* (EUCLIDIANA),2500,6030,10,856,12,895,11,554,11,633,0,652,1862,1863,true,375,28
-Grade 50x50 (densidade=50%),A* (EUCLIDIANA),2500,6030,13,577,15,977,14,744,14,827,0,750,2203,2204,true,373,26
-Grade 50x50 (densidade=50%),A* (EUCLIDIANA),2500,6030,13,578,23,694,16,516,16,881,3,354,2238,2239,true,375,03
-Grade 50x50 (densidade=50%),A* (EUCLIDIANA),2500,6030,13,068,19,516,13,603,14,728,2,116,2136,2137,true,373,26
-Aleatório G(100, 0,10),Dijkstra (Min-Heap),100,942,0,022,0,027,0,025,0,025,0,001,41,42,true,14,97
-Aleatório G(100, 0,10),BFS (não ponderado),100,942,0,024,0,027,0,025,0,025,0,001,89,90,true,3,00
-Aleatório G(200, 0,10),Dijkstra (Min-Heap),200,3941,0,137,0,157,0,140,0,142,0,006,140,141,true,11,00
-Aleatório G(200, 0,10),BFS (não ponderado),200,3941,0,028,0,037,0,031,0,031,0,003,38,39,true,2,00
-Aleatório G(500, 0,05),Dijkstra (Min-Heap),500,12446,0,601,1,287,0,693,0,735,0,187,310,311,true,10,31
-Aleatório G(500, 0,05),BFS (não ponderado),500,12446,0,418,0,432,0,424,0,424,0,005,320,321,true,3,00
-Aleatório G(100, 0,80),Dijkstra (Min-Heap),100,7894,0,020,0,030,0,023,0,024,0,003,20,21,true,3,45
-Aleatório G(100, 0,80),BFS (não ponderado),100,7894,0,020,0,023,0,021,0,021,0,001,81,82,true,1,00
-Aleatório G(200, 0,80),Dijkstra (Min-Heap),200,31824,0,125,0,137,0,128,0,128,0,004,88,89,true,3,68
-Aleatório G(200, 0,80),BFS (não ponderado),200,31824,0,075,0,090,0,077,0,078,0,004,160,161,true,1,00
-Esparso (árvore + 50 extras),Dijkstra (Min-Heap),500,548,0,568,0,841,0,619,0,633,0,075,458,459,true,54,61
-Esparso (árvore + 50 extras),BFS (não ponderado),500,548,0,765,1,076,0,775,0,804,0,091,460,461,true,8,00
-Esparso (árvore + 100 extras),Dijkstra (Min-Heap),1000,1099,2,408,3,250,2,568,2,684,0,278,966,967,true,61,24
-Esparso (árvore + 100 extras),BFS (não ponderado),1000,1099,3,258,3,592,3,371,3,381,0,091,914,915,true,10,00
-Gargalo (2 clusters de 100),Dijkstra (Min-Heap),200,9831,0,175,0,187,0,180,0,181,0,004,189,190,true,8,87
-Gargalo (2 clusters de 100),BFS (não ponderado),200,9831,0,096,0,099,0,098,0,098,0,001,191,192,true,4,00
-Gargalo (2 clusters de 250),Dijkstra (Min-Heap),500,62119,1,105,1,386,1,176,1,207,0,104,464,465,true,6,89
-Gargalo (2 clusters de 250),BFS (não ponderado),500,62119,0,535,0,554,0,541,0,541,0,005,441,442,true,4,00
+Grade 10x10 (densidade=70%),Dijkstra (Min-Heap),100,279,0,435,0,636,0,460,0,491,0,065,87,88,true,63,05
+Grade 10x10 (densidade=70%),BFS (não ponderado),100,279,0,151,2,291,0,559,0,649,0,585,99,100,true,18,00
+Grade 10x10 (densidade=70%),A* (heurística nula = Dijkstra),100,279,0,316,0,449,0,386,0,370,0,047,87,88,true,63,05
+Grade 10x10 (densidade=70%),A* (MANHATTAN),100,279,0,122,0,349,0,167,0,183,0,066,78,79,true,63,05
+Grade 10x10 (densidade=70%),A* (MANHATTAN),100,279,0,093,0,150,0,119,0,117,0,019,84,85,true,73,61
+Grade 10x10 (densidade=70%),A* (MANHATTAN),100,279,0,112,0,246,0,149,0,153,0,038,82,83,true,66,13
+Grade 10x10 (densidade=70%),A* (MANHATTAN),100,279,0,135,0,177,0,158,0,156,0,016,78,79,true,85,12
+Grade 10x10 (densidade=70%),A* (EUCLIDIANA),100,279,0,075,0,175,0,124,0,117,0,035,79,80,true,63,05
+Grade 10x10 (densidade=70%),A* (EUCLIDIANA),100,279,0,111,0,567,0,137,0,190,0,130,84,85,true,73,61
+Grade 10x10 (densidade=70%),A* (EUCLIDIANA),100,279,0,117,0,159,0,128,0,132,0,012,83,84,true,66,13
+Grade 10x10 (densidade=70%),A* (EUCLIDIANA),100,279,0,080,0,147,0,116,0,111,0,019,78,79,true,85,12
+Grade 20x20 (densidade=70%),Dijkstra (Min-Heap),400,1172,1,735,7,076,3,302,3,470,1,647,399,400,true,141,01
+Grade 20x20 (densidade=70%),BFS (não ponderado),400,1172,1,430,3,531,2,147,2,210,0,761,399,400,true,38,00
+Grade 20x20 (densidade=70%),A* (heurística nula = Dijkstra),400,1172,1,102,5,791,1,976,2,472,1,364,399,400,true,141,01
+Grade 20x20 (densidade=70%),A* (MANHATTAN),400,1172,0,831,1,607,1,110,1,182,0,267,396,397,true,141,01
+Grade 20x20 (densidade=70%),A* (MANHATTAN),400,1172,0,798,1,237,1,022,1,000,0,113,394,395,true,141,01
+Grade 20x20 (densidade=70%),A* (MANHATTAN),400,1172,0,932,1,305,1,036,1,058,0,104,396,397,true,156,87
+Grade 20x20 (densidade=70%),A* (MANHATTAN),400,1172,0,993,1,375,1,101,1,143,0,131,365,366,true,167,00
+Grade 20x20 (densidade=70%),A* (EUCLIDIANA),400,1172,0,699,0,997,0,776,0,792,0,105,396,397,true,141,01
+Grade 20x20 (densidade=70%),A* (EUCLIDIANA),400,1172,0,703,1,697,1,175,1,156,0,264,394,395,true,141,01
+Grade 20x20 (densidade=70%),A* (EUCLIDIANA),400,1172,0,776,2,179,0,971,1,198,0,436,399,400,true,145,83
+Grade 20x20 (densidade=70%),A* (EUCLIDIANA),400,1172,0,855,1,976,1,248,1,340,0,330,365,366,true,167,00
+Grade 30x30 (densidade=70%),Dijkstra (Min-Heap),900,2707,3,995,8,947,6,125,6,120,1,348,897,898,true,190,06
+Grade 30x30 (densidade=70%),BFS (não ponderado),900,2707,3,870,15,648,5,722,6,918,3,626,899,900,true,58,00
+Grade 30x30 (densidade=70%),A* (heurística nula = Dijkstra),900,2707,3,653,11,188,4,856,5,305,2,067,897,898,true,190,06
+Grade 30x30 (densidade=70%),A* (MANHATTAN),900,2707,2,728,11,240,3,767,4,091,2,430,862,863,true,190,06
+Grade 30x30 (densidade=70%),A* (MANHATTAN),900,2707,2,842,3,949,3,179,3,283,0,363,880,881,true,198,11
+Grade 30x30 (densidade=70%),A* (MANHATTAN),900,2707,2,689,5,653,4,291,3,947,0,870,864,865,true,190,06
+Grade 30x30 (densidade=70%),A* (MANHATTAN),900,2707,2,820,4,921,4,616,4,067,0,829,891,892,true,247,24
+Grade 30x30 (densidade=70%),A* (EUCLIDIANA),900,2707,2,786,4,692,3,159,3,494,0,696,870,871,true,190,06
+Grade 30x30 (densidade=70%),A* (EUCLIDIANA),900,2707,2,774,4,546,3,302,3,387,0,583,885,886,true,191,22
+Grade 30x30 (densidade=70%),A* (EUCLIDIANA),900,2707,2,446,4,258,2,943,3,018,0,485,871,872,true,190,06
+Grade 30x30 (densidade=70%),A* (EUCLIDIANA),900,2707,2,772,3,213,2,890,2,901,0,138,891,892,true,247,24
+Grade 50x50 (densidade=50%),Dijkstra (Min-Heap),2500,6030,16,092,22,884,18,708,18,925,2,117,2253,2254,true,373,26
+Grade 50x50 (densidade=50%),BFS (não ponderado),2500,6030,18,761,30,645,22,397,23,129,3,963,2299,2300,true,102,00
+Grade 50x50 (densidade=50%),A* (heurística nula = Dijkstra),2500,6030,18,820,26,550,22,432,22,445,2,690,2253,2254,true,373,26
+Grade 50x50 (densidade=50%),A* (MANHATTAN),2500,6030,15,576,30,092,19,619,20,661,4,101,1760,1761,true,375,28
+Grade 50x50 (densidade=50%),A* (MANHATTAN),2500,6030,17,869,23,557,18,851,19,785,1,890,2173,2174,true,390,18
+Grade 50x50 (densidade=50%),A* (MANHATTAN),2500,6030,17,558,26,040,21,725,21,536,2,565,2225,2226,true,387,61
+Grade 50x50 (densidade=50%),A* (MANHATTAN),2500,6030,18,629,30,182,22,685,22,495,3,745,2110,2111,true,373,26
+Grade 50x50 (densidade=50%),A* (EUCLIDIANA),2500,6030,14,757,25,336,19,627,19,903,3,404,1862,1863,true,375,28
+Grade 50x50 (densidade=50%),A* (EUCLIDIANA),2500,6030,19,093,29,735,22,796,22,840,2,790,2203,2204,true,373,26
+Grade 50x50 (densidade=50%),A* (EUCLIDIANA),2500,6030,21,355,94,868,31,417,40,315,23,646,2238,2239,true,375,03
+Grade 50x50 (densidade=50%),A* (EUCLIDIANA),2500,6030,18,233,26,364,21,089,21,605,2,796,2136,2137,true,373,26
+Aleatório G(100, 0,10),Dijkstra (Min-Heap),100,942,0,031,0,052,0,034,0,036,0,006,41,42,true,14,97
+Aleatório G(100, 0,10),BFS (não ponderado),100,942,0,025,0,034,0,031,0,030,0,003,89,90,true,3,00
+Aleatório G(200, 0,10),Dijkstra (Min-Heap),200,3941,0,140,0,363,0,166,0,185,0,063,140,141,true,11,00
+Aleatório G(200, 0,10),BFS (não ponderado),200,3941,0,025,0,029,0,026,0,026,0,001,38,39,true,2,00
+Aleatório G(500, 0,05),Dijkstra (Min-Heap),500,12446,0,604,0,924,0,664,0,676,0,094,310,311,true,10,31
+Aleatório G(500, 0,05),BFS (não ponderado),500,12446,0,435,0,739,0,464,0,504,0,095,320,321,true,3,00
+Aleatório G(100, 0,80),Dijkstra (Min-Heap),100,7894,0,019,0,029,0,021,0,021,0,003,20,21,true,3,45
+Aleatório G(100, 0,80),BFS (não ponderado),100,7894,0,022,0,029,0,025,0,025,0,002,81,82,true,1,00
+Aleatório G(200, 0,80),Dijkstra (Min-Heap),200,31824,0,133,0,190,0,134,0,144,0,018,88,89,true,3,68
+Aleatório G(200, 0,80),BFS (não ponderado),200,31824,0,076,0,096,0,083,0,083,0,008,160,161,true,1,00
+Esparso (árvore + 50 extras),Dijkstra (Min-Heap),500,548,0,950,1,539,1,184,1,202,0,225,458,459,true,54,61
+Esparso (árvore + 50 extras),BFS (não ponderado),500,548,0,864,1,675,1,224,1,139,0,293,460,461,true,8,00
+Esparso (árvore + 100 extras),Dijkstra (Min-Heap),1000,1099,2,836,3,985,3,025,3,192,0,407,966,967,true,61,24
+Esparso (árvore + 100 extras),BFS (não ponderado),1000,1099,3,641,4,766,3,865,3,879,0,319,914,915,true,10,00
+Gargalo (2 clusters de 100),Dijkstra (Min-Heap),200,9831,0,189,0,273,0,197,0,205,0,026,189,190,true,8,87
+Gargalo (2 clusters de 100),BFS (não ponderado),200,9831,0,098,0,210,0,101,0,114,0,033,191,192,true,4,00
+Gargalo (2 clusters de 250),Dijkstra (Min-Heap),500,62119,1,228,2,500,1,590,1,665,0,361,464,465,true,6,89
+Gargalo (2 clusters de 250),BFS (não ponderado),500,62119,0,560,0,597,0,576,0,576,0,014,441,442,true,4,00

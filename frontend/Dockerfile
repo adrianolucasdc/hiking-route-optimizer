@@ -3,8 +3,10 @@ FROM node:20 AS builder
 WORKDIR /app
 
 # Build args for API URLs (can be overridden at build time)
-ARG VITE_API_BASE=http://localhost:8080
-ARG VITE_PYTHON_BASE=http://localhost:5000
+# In Docker, use empty string for relative URLs (proxied by nginx)
+# For local dev, use http://localhost:8080
+ARG VITE_API_BASE=
+ARG VITE_PYTHON_BASE=
 ENV VITE_API_BASE=${VITE_API_BASE}
 ENV VITE_PYTHON_BASE=${VITE_PYTHON_BASE}
 
