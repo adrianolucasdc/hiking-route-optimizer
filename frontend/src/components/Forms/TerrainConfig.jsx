@@ -4,6 +4,20 @@ import { TERRAIN_TYPES } from '../../services/api';
 
 const getPointName = (index) => String.fromCharCode(65 + index);
 
+/**
+ * Get terrain difficulty class based on cost
+ * Maps to CSS utility classes defined in index.css
+ */
+function getTerrainClasses(cost) {
+  if (cost === Infinity) return { bg: 'bg-terrain-impassable', text: 'text-terrain-impassable', solid: 'bg-terrain-impassable-solid' };
+  if (cost <= 2) return { bg: 'bg-terrain-very-easy', text: 'text-terrain-very-easy', solid: 'bg-terrain-very-easy-solid' };
+  if (cost <= 3) return { bg: 'bg-terrain-easy', text: 'text-terrain-easy', solid: 'bg-terrain-easy-solid' };
+  if (cost <= 4) return { bg: 'bg-terrain-moderate', text: 'text-terrain-moderate', solid: 'bg-terrain-moderate-solid' };
+  if (cost <= 6) return { bg: 'bg-terrain-challenging', text: 'text-terrain-challenging', solid: 'bg-terrain-challenging-solid' };
+  if (cost <= 8) return { bg: 'bg-terrain-hard', text: 'text-terrain-hard', solid: 'bg-terrain-hard-solid' };
+  return { bg: 'bg-terrain-extreme', text: 'text-terrain-extreme', solid: 'bg-terrain-extreme-solid' };
+}
+
 export default function TerrainConfig({ config, onConfigChange, vertexCount, vertexLabels, t }) {
   const [activeSection, setActiveSection] = useState('elevation');
   const [terrainTypeGrid, setTerrainTypeGrid] = useState([]);
@@ -100,18 +114,6 @@ export default function TerrainConfig({ config, onConfigChange, vertexCount, ver
     setTerrainTypeGrid(emptyTerrain);
   };
 
-  const getTerrainColor = (type) => {
-    const terrain = TERRAIN_TYPES.find(t => t.value === type);
-    if (!terrain) return '#71717a';
-    const cost = terrain.cost;
-    if (cost === Infinity) return '#1f2937';
-    if (cost <= 2) return '#22c55e';
-    if (cost <= 4) return '#84cc16';
-    if (cost <= 6) return '#eab308';
-    if (cost <= 8) return '#f97316';
-    return '#ef4444';
-  };
-
   const sections = [
     { id: 'elevation', label: t('elevationTab') },
     { id: 'terrain', label: t('terrainTab') },
@@ -181,7 +183,6 @@ export default function TerrainConfig({ config, onConfigChange, vertexCount, ver
               vertexLabels={vertexLabels}
               terrainTypes={terrainTypeGrid}
               onChange={handleTerrainTypeChange}
-              getTerrainColor={getTerrainColor}
             />
             <TerrainLegend t={t} />
           </div>
@@ -319,7 +320,7 @@ function ElevationGrid({ vertexCount, vertexLabels, elevation, onChange }) {
   );
 }
 
-function TerrainTypeGrid({ vertexCount, vertexLabels, terrainTypes, onChange, getTerrainColor }) {
+function TerrainTypeGrid({ vertexCount, vertexLabels, terrainTypes, onChange }) {
   const maxDisplay = 10;
   const isLarge = vertexCount > maxDisplay;
   const displayCount = isLarge ? maxDisplay : vertexCount;
@@ -343,26 +344,33 @@ function TerrainTypeGrid({ vertexCount, vertexLabels, terrainTypes, onChange, ge
           {displayLabels.map((label, i) => (
             <tr key={i} className="matrix-row">
               <th className="matrix-row-th w-14">{label}</th>
-              {displayLabels.map((_, j) => (
-                <td key={j} className="matrix-td">
-                  <select
-                    value={terrainTypes[i]?.[j] ?? 'TERRA_BATIDA'}
-                    onChange={(e) => onChange(i, j, e.target.value)}
-                    className="input-compact w-full h-10 appearance-none bg-no-repeat bg-right bg-center pr-8 cursor-pointer"
-                    style={{
-                      backgroundColor: getTerrainColor(terrainTypes[i]?.[j] ?? 'TERRA_BATIDA') + '20',
-                      backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%2371717a\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M6 8l4 4 4-4\'/%3e%3c/svg%3e")',
-                      backgroundSize: '16px 16px'
-                    }}
-                  >
-                    {passableTypes.map(t => (
-                      <option key={t.value} value={t.value} style={{ backgroundColor: getTerrainColor(t.value) + '20' }}>
-                        {t.label}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-              ))}
+              {displayLabels.map((_, j) => {
+                const terrainType = terrainTypes[i]?.[j] ?? 'TERRA_BATIDA';
+                const terrain = TERRAIN_TYPES.find(t => t.value === terrainType);
+                const classes = terrain ? getTerrainClasses(terrain.cost) : getTerrainClasses(2.0);
+                return (
+                  <td key={j} className="matrix-td">
+                    <select
+                      value={terrainType}
+                      onChange={(e) => onChange(i, j, e.target.value)}
+                      className={`input-compact w-full h-10 appearance-none bg-no-repeat bg-right bg-center pr-8 cursor-pointer ${classes.bg}`}
+                      style={{
+                        backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'currentColor\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M6 8l4 4 4-4\'/%3e%3c/svg%3e")',
+                        backgroundSize: '16px 16px'
+                      }}
+                    >
+                      {passableTypes.map(t => {
+                        const optionClasses = getTerrainClasses(t.cost);
+                        return (
+                          <option key={t.value} value={t.value} className={optionClasses.bg}>
+                            {t.label}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
@@ -377,29 +385,23 @@ function TerrainLegend({ t }) {
   return (
     <div className="flex flex-wrap gap-1.5 text-[10px]">
       <span className="text-text-muted font-medium">{t('terrainLegend')}</span>
-      {passableTypes.map(t => (
-        <span
-          key={t.value}
-          className="px-2 py-0.5 rounded font-mono text-white"
-          style={{ backgroundColor: getTerrainColorHex(t.cost) }}
-          title={t.label}
-        >
-          {t.value}
-        </span>
-      ))}
+      {passableTypes.map(t => {
+        const classes = getTerrainClasses(t.cost);
+        return (
+          <span
+            key={t.value}
+            className={`px-2 py-0.5 rounded font-mono text-white ${classes.solid}`}
+            title={t.label}
+          >
+            {t.value}
+          </span>
+        );
+      })}
       <span className="px-2 py-0.5 rounded bg-border-strong text-text-primary font-mono" title="Plus 7 impassable types (water, rock, obstacles)...">
         +7 impassable
       </span>
     </div>
   );
-}
-
-function getTerrainColorHex(cost) {
-  if (cost <= 2) return '#22c55e';
-  if (cost <= 4) return '#84cc16';
-  if (cost <= 6) return '#eab308';
-  if (cost <= 8) return '#f97316';
-  return '#ef4444';
 }
 
 function ParameterInput({ label, value, onChange, min, max, step, suffix = '', disabled = false, help }) {
