@@ -137,13 +137,13 @@ export default function HikingRouteForm() {
       // Generate graph visualization
       try {
         const graphPayload = {
-          matrix: matrix,
+          matrix: matrix.map(row => row.map(v => (v === '' || v == null || isNaN(Number(v)) ? 0 : Number(v)))),
           directed: true,
           labels: vertexLabels,
           path: response.data.caminhoMinimo?.caminhoEncontrado ? response.data.caminhoMinimo.caminho : null,
           // Include terrain data if advanced config is enabled
-          terrainTypes: showTerrainConfig ? terrainConfig.terrainTypes : null,
-          elevations: showTerrainConfig ? terrainConfig.elevation : null,
+          terrainTypes: showTerrainConfig && terrainConfig.terrainTypes?.length ? terrainConfig.terrainTypes : null,
+          elevations: showTerrainConfig && terrainConfig.elevation?.length ? terrainConfig.elevation : null,
           cellSizeMeters: showTerrainConfig ? terrainConfig.cellSizeMeters : 10,
           allowDiagonals: showTerrainConfig ? terrainConfig.allowDiagonals : true,
           showEdgeWeights: true,
