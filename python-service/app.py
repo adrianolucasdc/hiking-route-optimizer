@@ -57,6 +57,13 @@ def get_terrain_color(terrain_type):
     """Get color for terrain type, with fallback."""
     return TERRAIN_COLORS.get(terrain_type, '#71717a')  # zinc-500
 
+def _num(v):
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return 0.0
+
+
 def get_terrain_cost(terrain_type):
     """Get cost for terrain type."""
     return TERRAIN_COSTS.get(terrain_type, 1.0)
@@ -75,6 +82,16 @@ def health_check():
 # ============================================================
 def matrix_to_graph(matrix, directed=True, terrain_types=None, elevations=None, cell_size_meters=10, allow_diagonals=True):
     """Convert adjacency matrix to NetworkX graph with terrain metadata."""
+    def _to_float(v):
+        if v is None:
+            return 0.0
+        try:
+            f = float(v)
+        except (TypeError, ValueError):
+            return 0.0  # '' or non-numeric -> no edge
+        return 0.0 if math.isnan(f) else f
+
+    matrix = [[_to_float(v) for v in row] for row in matrix]
     mat = np.array(matrix, dtype=float)
     n = mat.shape[0]
     if mat.shape[0] != mat.shape[1]:
@@ -342,7 +359,7 @@ def draw_hiking_trail_graph(G, labels=None, path=None, terrain_types=None, eleva
         present_terrains = set()
         for i in range(len(terrain_types)):
             for j in range(len(terrain_types[i])):
-                if i < len(matrix) and j < len(matrix[i]) and matrix[i][j] > 0:
+                if i < len(matrix) and j < len(matrix[i]) and (_num(matrix[i][j]) > 0):
                     present_terrains.add(terrain_types[i][j])
 
         for terrain in sorted(present_terrains):
