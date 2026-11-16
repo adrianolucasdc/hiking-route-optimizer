@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { toast } from 'react-toastify';
 import { graphApi, pythonGraphApi } from '../../services/api';
 import PathVisualization from '../Visualization/PathVisualization';
-import TerrainConfig from '../Forms/TerrainConfig';
+import { buildTerrainConfig, TERRAIN_PRESETS } from '../../lib/terrainPresets';
 import { useI18n } from '../../lib/I18nContext';
 
 const getPointName = (index) => String.fromCharCode(65 + index);
@@ -21,23 +21,18 @@ export default function HikingRouteForm() {
   const [vertexCount, setVertexCount] = useState(5);
   const [vertexLabels, setVertexLabels] = useState([]);
   const [matrix, setMatrix] = useState([]);
+  const pendingMatrix = useRef(null); // example loaded together with a vertex-count change
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [showTerrainConfig, setShowTerrainConfig] = useState(false);
-  const [terrainConfig, setTerrainConfig] = useState({
-    elevation: [],
-    terrainTypes: [],
-    cellSizeMeters: 10,
-    allowDiagonals: true,
-    maxUphillDegrees: 45,
-    maxDownhillDegrees: 60,
-    uphillPenaltyPerDegree: 0.1,
-    downhillBonusPerDegree: -0.05,
-  });
+  const [terrainPreset, setTerrainPreset] = useState('flat');
+  const terrainConfig = useMemo(
+    () => buildTerrainConfig(terrainPreset, vertexCount),
+    [terrainPreset, vertexCount]
+  );
   const [result, setResult] = useState(null);
   const [graphImage, setGraphImage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('matrix');
   const [showMatrixHelp, setShowMatrixHelp] = useState(false);
 
   // Initialize labels and matrix when vertexCount changes
@@ -50,7 +45,8 @@ export default function HikingRouteForm() {
         i === j ? 0 : ''
       )
     );
-    setMatrix(newMatrix);
+    setMatrix(pendingMatrix.current ?? newMatrix);
+    pendingMatrix.current = null;
 
     if (origin && origin.charCodeAt(0) - 65 >= vertexCount) setOrigin('');
     if (destination && destination.charCodeAt(0) - 65 >= vertexCount) setDestination('');
@@ -110,12 +106,8 @@ export default function HikingRouteForm() {
       payload.heuristica = heuristic;
     }
 
-    if (showTerrainConfig) {
-      payload.terreno = terrainConfig;
-    }
-
     return payload;
-  }, [matrix, origin, destination, algorithm, heuristic, showTerrainConfig, terrainConfig]);
+  }, [matrix, origin, destination, algorithm, heuristic]);
 
   const handleSubmit = async () => {
     if (!validateForm()) return;
@@ -142,10 +134,10 @@ export default function HikingRouteForm() {
           labels: vertexLabels,
           path: response.data.caminhoMinimo?.caminhoEncontrado ? response.data.caminhoMinimo.caminho : null,
           // Include terrain data if advanced config is enabled
-          terrainTypes: showTerrainConfig && terrainConfig.terrainTypes?.length ? terrainConfig.terrainTypes : null,
-          elevations: showTerrainConfig && terrainConfig.elevation?.length ? terrainConfig.elevation : null,
-          cellSizeMeters: showTerrainConfig ? terrainConfig.cellSizeMeters : 10,
-          allowDiagonals: showTerrainConfig ? terrainConfig.allowDiagonals : true,
+          terrainTypes: showTerrainConfig ? terrainConfig.terrainTypes : null,
+          elevations: showTerrainConfig ? terrainConfig.elevation : null,
+          cellSizeMeters: terrainConfig.cellSizeMeters,
+          allowDiagonals: terrainConfig.allowDiagonals,
           showEdgeWeights: true,
           figsize: [12, 10],
         };
@@ -176,20 +168,34 @@ export default function HikingRouteForm() {
   }, [vertexCount]);
 
   const handleLoadExample = useCallback(() => {
-    // Example: simple graph A-B-C-D-E with varied weights
-    const exampleMatrix = [
-      [0, 10, 0, 0, 15],  // A
-      [10, 0, 5, 0, 0],   // B
-      [0, 5, 0, 8, 0],    // C
-      [0, 0, 8, 0, 12],   // D
-      [15, 0, 0, 12, 0],  // E
-    ];
-    setMatrix(exampleMatrix);
+    // 3x3 grid (A B C / D E F / G H I), 4-neighbour edges, symmetric weights.
+    // Dijkstra/A* find A-D-E-H-I (cost 4); BFS finds a 4-edge path of higher cost.
+    const side = 3;
+    const size = side * side;
+    const weights = {
+      '0-1': 1, '1-2': 9, '0-3': 1, '1-4': 8, '2-5': 1,
+      '3-4': 1, '4-5': 9, '3-6': 9, '4-7': 1, '5-8': 1,
+      '6-7': 1, '7-8': 1,
+    };
+    const exampleMatrix = Array.from({ length: size }, () => Array(size).fill(0));
+    Object.entries(weights).forEach(([edge, w]) => {
+      const [a, b] = edge.split('-').map(Number);
+      exampleMatrix[a][b] = w;
+      exampleMatrix[b][a] = w;
+    });
+
+    if (vertexCount !== size) {
+      pendingMatrix.current = exampleMatrix; // applied by the vertexCount effect
+      setVertexCount(size);
+    } else {
+      setMatrix(exampleMatrix);
+    }
     setOrigin('A');
-    setDestination('D');
-    setVertexCount(5);
+    setDestination('I');
+    setResult(null);
+    setGraphImage(null);
     toast.success(t('exampleLoaded'));
-  }, []);
+  }, [vertexCount, t]);
 
   const pointOptions = useMemo(() => vertexLabels, [vertexLabels]);
   const complexity = getAlgorithmComplexity(algorithm);
@@ -242,48 +248,26 @@ export default function HikingRouteForm() {
       {/* Tabs */}
       <div className="mb-4 animate-fade-in">
         <nav className="tab-nav" aria-label={t('matrixTab')}>
-          <button
-            onClick={() => setActiveTab('matrix')}
-            className={`tab-item ${activeTab === 'matrix' ? 'tab-item-active' : 'tab-item-inactive'}`}
-          >
+          <button className="tab-item tab-item-active">
             {t('adjacencyMatrix')}
           </button>
-          {showTerrainConfig && (
-            <button
-              onClick={() => setActiveTab('terrain')}
-              className={`tab-item ${activeTab === 'terrain' ? 'tab-item-active' : 'tab-item-inactive'}`}
-            >
-              {t('terrainConfig')}
-            </button>
-          )}
         </nav>
       </div>
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4">
-        {/* Left Panel: Matrix Input / Terrain Config */}
+        {/* Left Panel: Matrix Input */}
         <div className="animate-fade-in">
           <div className="panel overflow-hidden">
-            {activeTab === 'matrix' && (
-              <MatrixInput
-                vertexCount={vertexCount}
-                vertexLabels={vertexLabels}
-                matrix={matrix}
-                onMatrixChange={handleMatrixChange}
-                t={t}
-                showHelp={showMatrixHelp}
-                onToggleHelp={setShowMatrixHelp}
-              />
-            )}
-            {activeTab === 'terrain' && (
-              <TerrainConfig
-                config={terrainConfig}
-                onConfigChange={setTerrainConfig}
-                vertexCount={vertexCount}
-                vertexLabels={vertexLabels}
-                t={t}
-              />
-            )}
+            <MatrixInput
+              vertexCount={vertexCount}
+              vertexLabels={vertexLabels}
+              matrix={matrix}
+              onMatrixChange={handleMatrixChange}
+              t={t}
+              showHelp={showMatrixHelp}
+              onToggleHelp={setShowMatrixHelp}
+            />
           </div>
         </div>
 
@@ -353,6 +337,18 @@ export default function HikingRouteForm() {
                 <span className="text-sm font-medium text-text-primary font-mono">{t('terrainConfig')}</span>
               </label>
               <p className="text-xs text-text-muted mt-1.5 ml-7">{t('terrainConfigDesc')}</p>
+              {showTerrainConfig && (
+                <select
+                  value={terrainPreset}
+                  onChange={(e) => setTerrainPreset(e.target.value)}
+                  className="input-compact w-full mt-3"
+                  aria-label={t('terrainConfig')}
+                >
+                  {TERRAIN_PRESETS.map((p) => (
+                    <option key={p} value={p}>{t(`preset_${p}`)}</option>
+                  ))}
+                </select>
+              )}
             </div>
 
             {/* Action Buttons */}
@@ -441,7 +437,7 @@ export default function HikingRouteForm() {
             graphImage={graphImage}
             vertexLabels={vertexLabels}
             algorithm={algorithm}
-            heuristic={heuristic}
+            heuristic={algorithm === 'astar' ? heuristic : null}
             matrix={matrix}
           />
         </div>

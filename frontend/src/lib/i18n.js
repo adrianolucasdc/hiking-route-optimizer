@@ -52,29 +52,11 @@ export const translations = {
     selectPlaceholder: 'Select...',
 
     // Terrain Config
-    terrainConfig: 'Advanced Terrain Config',
-    terrainConfigDesc: 'Elevation, 15 terrain types, slope penalties, diagonals',
-    elevationTab: 'Elevation (m)',
-    terrainTab: 'Terrain Types',
-    paramsTab: 'Parameters',
-    loadMountainScenario: 'Load Mountain Scenario',
-    clearTerrain: 'Clear',
-    elevationHelp: 'Relative elevation in meters. Positive = uphill, negative = downhill.',
-    terrainLegend: 'Legend',
-    cellSize: 'Cell Size (m)',
-    maxUphill: 'Max Uphill (°)',
-    maxDownhill: 'Max Downhill (°)',
-    uphillPenalty: 'Uphill Penalty (%/°)',
-    downhillBonus: 'Downhill Bonus (%/°)',
-    minDownhillCost: 'Min Downhill Cost (%)',
-    minDownhillCostHelp: 'Fixed at 30% (safety factor)',
-    allowDiagonals: 'Allow diagonal movement (×√2 ≈ 1.414)',
-    formulasTitle: 'Applied Formulas',
-    formulas: [
-      'Uphill: cost × (1 + slope° × {uphillPenalty})',
-      'Downhill: cost × max(0.3, 1 + slope° × {downhillBonus})',
-      'Diagonal: distance × √2 × terrain_cost',
-    ],
+    terrainConfig: 'Terrain preset',
+    terrainConfigDesc: 'Adds terrain colors and elevation to the graph image',
+    preset_flat: 'Flat ground',
+    preset_mountain: 'Mountain',
+    preset_trail: 'Mixed trail',
 
     // Actions
     calculateRoute: 'Calculate Optimal Route',
@@ -112,8 +94,7 @@ export const translations = {
     // Toasts
     routeCalculated: 'Route calculated successfully!',
     graphFailed: 'Route calculated, but failed to generate graph',
-    exampleLoaded: 'Example loaded: 5-vertex graph (A–B–C–D–E)',
-    mountainLoaded: 'Mountain scenario loaded!',
+    exampleLoaded: 'Example loaded: 3×3 grid (A to I)',
     selectOriginDest: 'Select origin and destination',
     originDestDifferent: 'Origin and destination must be different',
     isolatedOrigin: 'Isolated origin — no outgoing or incoming edges',
@@ -125,7 +106,7 @@ export const translations = {
     footerGithub: 'GitHub',
     footerApiDocs: 'API Docs',
     footerLicense: 'MIT License',
-    footerStack: 'Spring Boot 3.2.5 • React 19 • Python 3.11 • Docker • 122 tests',
+    footerStack: 'Spring Boot 3.2.5 • React 19 • Python 3.11 • Docker • 128 tests',
   },
 
   pt: {
@@ -167,29 +148,11 @@ export const translations = {
     selectPlaceholder: 'Selecione...',
 
     // Terrain Config
-    terrainConfig: 'Configuração Avançada de Terreno',
-    terrainConfigDesc: 'Elevação, 15 tipos de terreno, penalidades de inclinação, diagonais',
-    elevationTab: 'Elevação (m)',
-    terrainTab: 'Tipos de Terreno',
-    paramsTab: 'Parâmetros',
-    loadMountainScenario: 'Carregar Cenário Montanha',
-    clearTerrain: 'Limpar',
-    elevationHelp: 'Elevação relativa em metros. Positivo = subida, negativo = descida.',
-    terrainLegend: 'Legenda',
-    cellSize: 'Tamanho da Célula (m)',
-    maxUphill: 'Máx. Subida (°)',
-    maxDownhill: 'Máx. Descida (°)',
-    uphillPenalty: 'Penalidade Subida (%/°)',
-    downhillBonus: 'Bônus Descida (%/°)',
-    minDownhillCost: 'Mín. Custo Descida (%)',
-    minDownhillCostHelp: 'Fixo em 30% (fator de segurança)',
-    allowDiagonals: 'Permitir movimento diagonal (×√2 ≈ 1.414)',
-    formulasTitle: 'Fórmulas Aplicadas',
-    formulas: [
-      'Subida: custo × (1 + inclinação° × {uphillPenalty})',
-      'Descida: custo × max(0.3, 1 + inclinação° × {downhillBonus})',
-      'Diagonal: distância × √2 × custo_terreno',
-    ],
+    terrainConfig: 'Preset de terreno',
+    terrainConfigDesc: 'Adiciona cores de terreno e elevação à imagem do grafo',
+    preset_flat: 'Terreno plano',
+    preset_mountain: 'Montanha',
+    preset_trail: 'Trilha mista',
 
     // Actions
     calculateRoute: 'Calcular Rota Ótima',
@@ -227,8 +190,7 @@ export const translations = {
     // Toasts
     routeCalculated: 'Rota calculada com sucesso!',
     graphFailed: 'Rota calculada, mas falha ao gerar gráfico',
-    exampleLoaded: 'Exemplo carregado: Grafo 5 vértices (A–B–C–D–E)',
-    mountainLoaded: 'Cenário de montanha carregado!',
+    exampleLoaded: 'Exemplo carregado: grade 3×3 (A até I)',
     selectOriginDest: 'Selecione origem e destino',
     originDestDifferent: 'Origem e destino devem ser diferentes',
     isolatedOrigin: 'Origem isolada — sem conexões de saída ou entrada',
@@ -240,7 +202,7 @@ export const translations = {
     footerGithub: 'GitHub',
     footerApiDocs: 'Documentação API',
     footerLicense: 'Licença MIT',
-    footerStack: 'Spring Boot 3.2.5 • React 19 • Python 3.11 • Docker • 122 testes',
+    footerStack: 'Spring Boot 3.2.5 • React 19 • Python 3.11 • Docker • 128 testes',
   },
 };
 

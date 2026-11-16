@@ -186,7 +186,9 @@ function PathSummaryView({ minPath, maxPath, minPathLetters, maxPathLetters, res
           title={t('minPathTitle')}
           status={pathFound ? 'success' : 'error'}
           value={pathFound ? t('found') : t('notFound')}
-          details={pathFound ? t('cost', { cost: minPath.custo }) : minPath?.mensagem}
+          details={pathFound
+            ? `${t('cost', { cost: minPath.custo })}${minPath.algoritmo ? ` · ${minPath.algoritmo}` : ''}${minPath.nosExpandidos != null ? ` · ${minPath.nosExpandidos} nodes expanded` : ''}`
+            : minPath?.mensagem}
         />
         <StatusCard
           title={t('maxPathTitle')}
