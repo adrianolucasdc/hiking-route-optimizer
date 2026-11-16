@@ -37,7 +37,7 @@ Network: `hiking-network` (bridge)
 Backend:
   GET  /                           → API info
   GET  /actuator/health            → Health check
-  POST /api/grafo/processar        → Min/max path (matriz, origem, destino)
+  POST /api/grafo/processar        → Min/max path (matriz, origem, destino, algoritmo?, heuristica?)
 
 Python:
   GET  /health                     → Health check
@@ -45,7 +45,7 @@ Python:
 ```
 
 ## Test Suite
-**122 tests passing** (JUnit 5 + AssertJ)
+**128 tests passing** (JUnit 5 + AssertJ)
 - DijkstraServiceTest: 15
 - AStarFinderTest: 6
 - BFSFinderTest: 6
@@ -53,7 +53,7 @@ Python:
 - CaminhoMaximoServiceTest: 12
 - ValidadorGrafoTest: 21
 - GrafoTest: 16
-- GrafoServiceTest: 7
+- GrafoServiceTest: 13
 - GrafoVisualizerTest: 13
 - TerrainCostCalculatorTest: 17
 
