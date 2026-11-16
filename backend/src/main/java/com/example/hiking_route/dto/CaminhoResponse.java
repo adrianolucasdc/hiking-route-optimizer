@@ -9,6 +9,8 @@ public class CaminhoResponse {
     private String tipo; 
     private boolean caminhoEncontrado;
     private String mensagem;
+    private String algoritmo;
+    private Integer nosExpandidos;
 
     public CaminhoResponse() {}
 
@@ -58,5 +60,21 @@ public class CaminhoResponse {
 
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
+    }
+
+    public String getAlgoritmo() {
+        return algoritmo;
+    }
+
+    public void setAlgoritmo(String algoritmo) {
+        this.algoritmo = algoritmo;
+    }
+
+    public Integer getNosExpandidos() {
+        return nosExpandidos;
+    }
+
+    public void setNosExpandidos(Integer nosExpandidos) {
+        this.nosExpandidos = nosExpandidos;
     }
 }

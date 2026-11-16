@@ -15,6 +15,12 @@ public class GrafoRequest {
     @NotNull(message = "O vértice de destino é obrigatório")
     private Integer destino;
 
+    /** dijkstra (padrão), astar ou bfs. */
+    private String algoritmo = "dijkstra";
+
+    /** Somente para astar: MANHATTAN, EUCLIDEAN ou CHEBYSHEV. */
+    private String heuristica;
+
     public GrafoRequest() {}
 
     public GrafoRequest(double[][] matriz, Integer origem, Integer destino) {
@@ -45,5 +51,21 @@ public class GrafoRequest {
 
     public void setDestino(Integer destino) {
         this.destino = destino;
+    }
+
+    public String getAlgoritmo() {
+        return algoritmo;
+    }
+
+    public void setAlgoritmo(String algoritmo) {
+        this.algoritmo = algoritmo;
+    }
+
+    public String getHeuristica() {
+        return heuristica;
+    }
+
+    public void setHeuristica(String heuristica) {
+        this.heuristica = heuristica;
     }
 }

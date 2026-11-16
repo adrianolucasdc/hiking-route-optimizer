@@ -16,6 +16,7 @@ public class AStarFinder implements PathFinder {
     private final Heuristica heuristica;
     private final int larguraGrade;
     private final int alturaGrade;
+    private final double escala;
 
     public enum Heuristica {
         MANHATTAN,
@@ -28,9 +29,19 @@ public class AStarFinder implements PathFinder {
      * Construtor para grafo em grade (ex: matriz NxM convertida em grafo).
      */
     public AStarFinder(int larguraGrade, int alturaGrade, Heuristica heuristica) {
+        this(larguraGrade, alturaGrade, heuristica, 1.0);
+    }
+
+    /**
+     * Construtor com fator de escala da heurística. Use a menor aresta (ajustada
+     * ao tipo de movimento) para manter a heurística admissível quando os pesos
+     * das arestas não são 1.
+     */
+    public AStarFinder(int larguraGrade, int alturaGrade, Heuristica heuristica, double escala) {
         this.larguraGrade = larguraGrade;
         this.alturaGrade = alturaGrade;
         this.heuristica = heuristica;
+        this.escala = escala;
     }
 
     /**
@@ -173,7 +184,7 @@ public class AStarFinder implements PathFinder {
         int vx = v % larguraGrade;
         int vy = v / larguraGrade;
 
-        return switch (heuristica) {
+        return escala * switch (heuristica) {
             case MANHATTAN -> Math.abs(ux - vx) + Math.abs(uy - vy);
             case EUCLIDIANA -> Math.hypot(ux - vx, uy - vy);
             case CHEBYSHEV -> Math.max(Math.abs(ux - vx), Math.abs(uy - vy));
